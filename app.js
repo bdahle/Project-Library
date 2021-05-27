@@ -1,20 +1,22 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, status) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = read;
+  this.status = status;
 }
 
 Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
+  return `${this.title} by ${this.author}, ${this.pages}, ${this.status}`;
 };
 
-function addBookToLibrary(title, author, pages, read) {
-  const newBook = new Book(title, author, pages, read);
+function addBookToLibrary(title, author, pages, status) {
+  const newBook = new Book(title, author, pages, status);
   myLibrary.push(newBook);
+  //clear form
 }
+
 function clearTableBody() {
   for (var i = table.rows.length - 1; i > 0; i--) {
     table.deleteRow(i);
@@ -29,7 +31,7 @@ function updateTable() {
     addCell(row, book.title);
     addCell(row, book.author);
     addCell(row, book.pages);
-    addCell(row, book.read);
+    addCell(row, book.status);
   });
 }
 
@@ -41,12 +43,19 @@ function addCell(row, cellText) {
 
 const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
+const pagesInput = document.querySelector("#pages");
+const statusSelect = document.querySelector("#status");
 const newBookForm = document.querySelector(".new-book-form");
 let table = document.querySelector("table");
 
 newBookForm.addEventListener("submit", (e) => {
   e.preventDefault(); //prevent reloading the page
-  addBookToLibrary(titleInput.value, authorInput.value, 707, "READ");
+  addBookToLibrary(
+    titleInput.value,
+    authorInput.value,
+    pagesInput.value,
+    statusSelect.value
+  );
   updateTable();
 });
 
