@@ -14,7 +14,7 @@ Book.prototype.info = function () {
 function addBookToLibrary(title, author, pages, status) {
   const newBook = new Book(title, author, pages, status);
   myLibrary.push(newBook);
-  //clear form
+  newBookForm.reset();
 }
 
 function clearTableBody() {
