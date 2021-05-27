@@ -26,12 +26,23 @@ function clearTableBody() {
 function updateTable() {
   clearTableBody();
 
-  myLibrary.forEach((book) => {
+  myLibrary.forEach((book, i) => {
     let row = table.insertRow();
     addCell(row, book.title);
     addCell(row, book.author);
     addCell(row, book.pages);
     addCell(row, book.status);
+
+    let btn = document.createElement("button");
+    btn.innerHTML = "DELETE";
+    btn.setAttribute("data-index", i);
+    btn.addEventListener("click", (e) => {
+      console.log(e.target.getAttribute("data-index"));
+      myLibrary.splice(e.target.getAttribute("data-index"), 1);
+      updateTable();
+    });
+    let cell = row.insertCell();
+    cell.appendChild(btn);
   });
 }
 
@@ -66,5 +77,12 @@ addBookToLibrary(
   "READ"
 );
 addBookToLibrary("Tools of Titans", "Timothy Ferriss", 707, "READ");
+addBookToLibrary("Dune", "Frank Herbert", 688, "READ");
+addBookToLibrary(
+  "Man's Search for Meaning",
+  "Viktor E. Frankl",
+  165,
+  "NOT READ"
+);
 
 updateTable();
