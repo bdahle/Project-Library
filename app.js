@@ -31,18 +31,29 @@ function updateTable() {
     addCell(row, book.title);
     addCell(row, book.author);
     addCell(row, book.pages);
-    addCell(row, book.status);
+    // addCell(row, book.status);
 
-    let btn = document.createElement("button");
-    btn.innerHTML = "DELETE";
-    btn.setAttribute("data-index", i);
-    btn.addEventListener("click", (e) => {
+    let statusToggleButton = document.createElement("button");
+    statusToggleButton.innerHTML = book.status;
+    statusToggleButton.setAttribute("data-index", i);
+    statusToggleButton.addEventListener("click", (e) => {
+      console.log(e.target.getAttribute("data-index"));
+      toggleRead(i);
+      updateTable();
+    });
+    let cell = row.insertCell();
+    cell.appendChild(statusToggleButton);
+
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "DELETE";
+    deleteButton.setAttribute("data-index", i);
+    deleteButton.addEventListener("click", (e) => {
       console.log(e.target.getAttribute("data-index"));
       myLibrary.splice(e.target.getAttribute("data-index"), 1);
       updateTable();
     });
-    let cell = row.insertCell();
-    cell.appendChild(btn);
+    let cell2 = row.insertCell();
+    cell2.appendChild(deleteButton);
   });
 }
 
@@ -50,6 +61,16 @@ function addCell(row, cellText) {
   let cell = row.insertCell();
   let text = document.createTextNode(cellText);
   cell.appendChild(text);
+}
+
+function toggleRead(index) {
+  let currentStatus = myLibrary[index].status;
+  if (currentStatus === "NOT READ") {
+    myLibrary[index].status = "READ";
+  } else if (currentStatus === "READ") {
+    myLibrary[index].status = "NOT READ";
+  }
+  updateTable();
 }
 
 const titleInput = document.querySelector("#title");
