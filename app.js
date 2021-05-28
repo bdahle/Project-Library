@@ -31,7 +31,6 @@ function updateTable() {
     addCell(row, book.title);
     addCell(row, book.author);
     addCell(row, book.pages);
-    // addCell(row, book.status);
 
     let statusToggleButton = document.createElement("button");
     statusToggleButton.innerHTML = book.status;
